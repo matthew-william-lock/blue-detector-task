@@ -4,3 +4,6 @@
 [submodule "src/webots_ros2_jetbot"]
 	path = src/webots_ros2_jetbot
 	url = https://github.com/matthew-william-lock/webots_ros2_jetbot
+[submodule "src/ros2_numpy"]
+	path = src/ros2_numpy
+	url = https://github.com/Box-Robotics/ros2_numpy
