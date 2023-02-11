@@ -27,4 +27,4 @@ sudo apt install ./webots_2023a_amd64.deb
 
 For this project, the webots_ros2 package was built from source, with the specific commit found in the ```webots_ros2``` submodule in the ```src``` folder. 
 
-Follow the instructions [here](https://github.com/cyberbotics/webots_ros2/wiki/Linux-Installation-Guide) to install the Webots ROS2 package into your ROS2 workspace, but be be sure to use the branch 
+Follow the instructions [here](https://github.com/cyberbotics/webots_ros2/wiki/Linux-Installation-Guide) to install the Webots ROS2 package into your ROS2 workspace, but be be sure to use the branch.

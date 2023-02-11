@@ -1,3 +1,6 @@
 [submodule "src/webots_ros2"]
 	path = src/webots_ros2
 	url = https://github.com/cyberbotics/webots_ros2
+[submodule "src/webots_ros2_jetbot"]
+	path = src/webots_ros2_jetbot
+	url = https://github.com/matthew-william-lock/webots_ros2_jetbot
