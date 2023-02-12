@@ -4,10 +4,22 @@ This repository contains the code for the Blue Detector Task. The task is define
 
 > Develop an appropriate system including ROS/Python​ that will prevent operation of a linear actuator if enough color "blue" is detected on an RGB video camera. The delivery should include CAD for the complete system (actuator, camera and anything else relevant). Please carefully review the job description and make sure you are showing your work at your best. Think about the use cases, how we'll read your code, your architecture, and how your solution might break. A single code file is not likely to be sufficient. You can of course make assumptions/simplifications, but state them clearly. 
 
+Solution description:
+
+For this task, I have put together a simulation environment (using the Webots simulator) which will allow me to interact with a robotic platform using ROS2. The robotic platform chosen is the e-puck mobile robot and is equipped with a camera. The camera is used to detect the color blue using the developed [ros2_detect_blue](https://github.com/matthew-william-lock/ros2_detect_blue). Please see the pacakge readme for more information on how the color detection works, the three different methods used, and the considerations for each method. 
+
+Once the **ros2_detect_blue** packge is running, a boolean message is published to the topic **/blue_detected**. This message can be used to control the linear actuator. I unfortunately did not have time to implement the actuator control and neccessary CAD models within recommended time frame of 2-3 hours. Nevertheless, the approach I would have taken would have been to control a GPIO pin using the **blue_detected** message. This could have been done through
+1. A Teensy 4.1 microcontroller connected to the host machine via USB. The Teensy would have been programmed to listen to the **blue_detected** topic using micro-ROS and control the GPIO pin accordingly. 
+2. A raspberry pi connected to the host machine via USB. The raspberry pi would have been programmed to listen to the **blue_detected** topic control the GPIO pin accordingly.
+
+Once the GPIO pin is controlled, the actuator can be controlled using a relay. The relay can then be used as a simple control mechanism for the linear actuator as described in [How Do You Control a Linear Actuator with a Relay?](https://www.firgelliauto.com/blogs/tutorials/how-do-you-control-a-linear-actuator-with-a-relay) and [What Type of Actuator Switch Do I Need?](https://www.firgelliauto.com/blogs/tutorials/how-do-you-control-a-linear-actuator-with-a-switch#:~:text=To%20control%20a%20linear%20actuator%2C%20you%20need%20to%20use%20either,relays%20with%20a%20DPDT%20switch.).
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
 ### Prerequisites
+
+1. Install the required software needed to run the simulation.
 
 * Ubuntu 22.04
 
@@ -15,16 +27,50 @@ This repository contains the code for the Blue Detector Task. The task is define
 
 Install ROS2 Humble following the instructions [here](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html).
 
-* [Webots R2023a](https://github.com/cyberbotics/webots/releases/tag/R2023a)
+* [Webots 2022a](https://github.com/cyberbotics/webots/releases/tag/R2022a)
 
 Run the following commands to install Webots 2022a after downloading the .deb file:
 
 ```sh
-sudo apt install ./webots_2023a_amd64.deb
+sudo apt install ./webots_2022a_amd64.deb
 ```
 
-* Webots ROS2 package
+There is a known cirtificate issue with the Webots installation. To fix this, follow the instructions [here](https://github.com/cyberbotics/webots_ros2/issues/465).
 
-For this project, the webots_ros2 package was built from source, with the specific commit found in the ```webots_ros2``` submodule in the ```src``` folder. 
+* Numpy
+```sh
+sudo apt-get install python3-numpy
+```
 
-Follow the instructions [here](https://github.com/cyberbotics/webots_ros2/wiki/Linux-Installation-Guide) to install the Webots ROS2 package into your ROS2 workspace, but be be sure to use the branch.
+* cv2
+
+```bash
+sudo apt-get install python3-opencv
+```
+
+2. Clone and build the necessary packages.
+
+```bash
+git clone --recurse-submodules -j8 https://github.com/matthew-william-lock/blue-detector-task
+```
+
+Move the ROS2 packages into the `src` folder of your ROS2 workspace:
+```sh
+cp -r blue-detector-task/src/ros2_detect_blue ~/ros2_ws/src/
+cp -r blue-detector-task/src/ros2_numpy ~/ros2_ws/src/
+cp -r blue-detector-task/src/webots_ros2 ~/ros2_ws/src/
+cp -r blue-detector-task/src/webots_ros2_jetbot ~/ros2_ws/src/
+```
+
+Build the ROS2 packages:
+```sh
+cd ~/ros2_ws
+rosdep install -i --from-path src --rosdistro $ROS_DISTRO -y
+colcon build 
+```
+
+Source the ROS2 workspace:
+
+```sh
+source ~/ros2_ws/install/local_setup.bash
+```
