@@ -115,15 +115,25 @@ This will publish the **blue_detected** message to the topic **/blue_detected**.
 
 
 ## Experimental Results
+
 Shown below are some experimental results for the different detection methods.
 
+> Again, please see documentation for details on the different detection methods and explanations of the shortcomings of each method.
 
+### Simple Thresholding
 https://user-images.githubusercontent.com/53016036/218309110-8b128d47-b508-49e8-b32b-7e9dda9c09ab.mp4
 
+As described in the documentation, the simple thresholding method is not very robust. In this simulation environment, the robot is able to detect the blue object but is unable to distinguish between the blue object and the sky. This is due to the fact that the sky is also blue and the thresholding method is unable to distinguish between the two. This would not be an ideal solution for scenarios where the camera will have the sky in view.
+
+### Thresholding with K-Means Clustering
 
 https://user-images.githubusercontent.com/53016036/218309121-dec40923-91dd-4433-978d-a8bf440fc410.mp4
 
+This video shows the results of the thresholding with K-Means clustering method. Clusters with centroids in the top 10% of the image are discarded. This method is able to distinguish between the blue object and the sky. This method is more robust than the simple thresholding method but is still not a good general solution. For example, if the blue object was placed against the blue sky, the robot would not be able to detect the blue object.
+
+### Thresholding with K-Means Clustering and Coverage Thresholding
 
 https://user-images.githubusercontent.com/53016036/218309144-ca885ada-20e5-4aa4-86ea-90c0acda8cf7.mp4
 
+This video shows the results of the thresholding with K-Means clustering and coverage thresholding method. The idea here is to detect object that are close to the camera by determining the coverage of the cluster. The video shows that this method successfully detects the blue object only when the robot gets close. Still, this method is not a good general solution as you would likely want to specify an exact object size and distance from the camera. This could be done with a stereo camera but this is not implemented in this simulation.
 
