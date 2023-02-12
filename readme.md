@@ -77,6 +77,12 @@ Source the ROS2 workspace:
 source ~/ros2_ws/install/local_setup.bash
 ```
 
+Move the Webots world file into the Webots projects folder:
+
+```sh
+cp blue-detector-task/src/worlds/epuck_world.wbt ~/ros2_ws/install/webots_ros2_epuck/share/webots_ros2_epuck/worlds
+```
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
