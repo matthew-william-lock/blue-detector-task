@@ -6,7 +6,7 @@ This repository contains the code for the Blue Detector Task. The task is define
 
 Solution description:
 
-For this task, I have put together a simulation environment (using the Webots simulator) which will allow me to interact with a robotic platform using ROS2. The robotic platform chosen is the e-puck mobile robot and is equipped with a camera. The camera is used to detect the color blue using the developed [ros2_detect_blue](https://github.com/matthew-william-lock/ros2_detect_blue). Please see the pacakge readme for more information on how the color detection works, the three different methods used, and the considerations for each method. 
+For this task, I have put together a simulation environment (using the Webots simulator) which will allow me to interact with a robotic platform using ROS2. The robotic platform chosen is the [e-puck mobile robot](https://cyberbotics.com/doc/guide/epuck) and is equipped with a camera. The camera is used to detect the color blue using the developed [ros2_detect_blue](https://github.com/matthew-william-lock/ros2_detect_blue). Please see the pacakge readme for more information on how the color detection works, the three different methods used, and the considerations for each method. 
 
 <img src="https://user-images.githubusercontent.com/53016036/218308194-71ddd6cf-042f-4ae5-9425-f21ca903a957.png" width="100%">
 
@@ -76,3 +76,42 @@ Source the ROS2 workspace:
 ```sh
 source ~/ros2_ws/install/local_setup.bash
 ```
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+To start the Webots simulation, run the following command:
+
+```sh
+ros2 launch webots_ros2_epuck robot_launch.py
+```
+
+To control the robot platform, we make use of the [teleop_twist_keyboard]](https://github.com/ros2/teleop_twist_keyboard) package. To start the teleop_twist_keyboard node, run the following command:
+
+```sh
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+The robot can then be controlled using the following keys as shown in the table below:
+
+| Key | Action |
+| --- | --- |
+| i | Move forward |
+| j | Turn left |
+| l | Turn right |
+
+> Note that there is no key to move backwards.
+
+### Detecting Blue
+
+To start the color detection node, run the following command:
+
+```bash
+ros2 run ros2_detect_blue detect_blue --ros-args -p detection_method:=0
+```
+
+This will publish the **blue_detected** message to the topic **/blue_detected**.
+
+> Please see the full documentation for the **ros2_detect_blue** package [here](https://github.com/matthew-william-lock/ros2_detect_blue).
+
+Shown below are some experimental results for the different detection methods.
