@@ -8,6 +8,8 @@ Solution description:
 
 For this task, I have put together a simulation environment (using the Webots simulator) which will allow me to interact with a robotic platform using ROS2. The robotic platform chosen is the e-puck mobile robot and is equipped with a camera. The camera is used to detect the color blue using the developed [ros2_detect_blue](https://github.com/matthew-william-lock/ros2_detect_blue). Please see the pacakge readme for more information on how the color detection works, the three different methods used, and the considerations for each method. 
 
+<img src="https://user-images.githubusercontent.com/53016036/218308194-71ddd6cf-042f-4ae5-9425-f21ca903a957.png" width="100%">
+
 Once the **ros2_detect_blue** packge is running, a boolean message is published to the topic **/blue_detected**. This message can be used to control the linear actuator. I unfortunately did not have time to implement the actuator control and neccessary CAD models within recommended time frame of 2-3 hours. Nevertheless, the approach I would have taken would have been to control a GPIO pin using the **blue_detected** message. This could have been done through
 1. A Teensy 4.1 microcontroller connected to the host machine via USB. The Teensy would have been programmed to listen to the **blue_detected** topic using micro-ROS and control the GPIO pin accordingly. 
 2. A raspberry pi connected to the host machine via USB. The raspberry pi would have been programmed to listen to the **blue_detected** topic control the GPIO pin accordingly.
