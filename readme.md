@@ -86,7 +86,7 @@ To start the Webots simulation, run the following command:
 ros2 launch webots_ros2_epuck robot_launch.py
 ```
 
-To control the robot platform, we make use of the [teleop_twist_keyboard]](https://github.com/ros2/teleop_twist_keyboard) package. To start the teleop_twist_keyboard node, run the following command:
+To control the robot platform, we make use of the [teleop_twist_keyboard](https://github.com/ros2/teleop_twist_keyboard) package. To start the teleop_twist_keyboard node, run the following command:
 
 ```sh
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
@@ -99,8 +99,7 @@ The robot can then be controlled using the following keys as shown in the table 
 | i | Move forward |
 | j | Turn left |
 | l | Turn right |
-
-> Note that there is no key to move backwards.
+| m | Move backwards |
 
 ### Detecting Blue
 
@@ -114,4 +113,6 @@ This will publish the **blue_detected** message to the topic **/blue_detected**.
 
 > Please see the full documentation for the **ros2_detect_blue** package [here](https://github.com/matthew-william-lock/ros2_detect_blue).
 
+
+## Experimental Results
 Shown below are some experimental results for the different detection methods.
